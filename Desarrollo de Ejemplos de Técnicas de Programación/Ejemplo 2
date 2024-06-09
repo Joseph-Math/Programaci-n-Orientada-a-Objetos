@@ -1,1 +1,22 @@
+import math
 
+def calcular_area_circulo(radio):
+    """
+    Calcula el área de un círculo dado su radio.
+    
+    Argumentos:
+    radio (float): El radio del círculo.
+    
+    Retorna:
+    float: El área del círculo.
+    """
+    return math.pi * radio ** 2
+
+# Solicitar al usuario que ingrese el radio del círculo
+radio = float(input("Ingrese el radio del círculo: "))
+
+# Calcular el área del círculo
+area = calcular_area_circulo(radio)
+
+# Imprimir el resultado
+print("El área del círculo con radio", radio, "es:", area)
