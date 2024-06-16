@@ -1,0 +1,48 @@
+class RegistroTemperatura:
+  """
+  Clase para registrar y calcular el promedio semanal de temperaturas.
+
+  Atributos:
+    temperaturas (list): Lista de temperaturas diarias.
+
+  Métodos:
+    registrar_temperatura(self, dia, temperatura):
+      Registra la temperatura de un día específico.
+    calcular_promedio_semanal(self):
+      Calcula el promedio semanal de temperaturas.
+  """
+
+  def __init__(self):
+    self.temperaturas = []
+
+  def registrar_temperatura(self, dia, temperatura):
+    """
+    Método para registrar la temperatura de un día específico.
+
+    Argumentos:
+      dia (str): Nombre del día de la semana (Ej: "Lunes", "Martes").
+      temperatura (float): Temperatura a registrar.
+    """
+    self.temperaturas.append((dia, temperatura))
+
+  def calcular_promedio_semanal(self):
+    """
+    Método para calcular el promedio semanal de temperaturas.
+
+    Retorno:
+      float: Promedio semanal de temperaturas.
+    """
+    if len(self.temperaturas) != 7:
+      raise ValueError("Se deben registrar temperaturas para 7 días.")
+    promedio = sum([temperatura for _, temperatura in self.temperaturas]) / len(self.temperaturas)
+    return promedio
+
+# Programa principal
+registro_semanal = RegistroTemperatura()
+
+for dia in ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]:
+  temperatura_dia = float(input(f"Ingrese la temperatura para el {dia}: "))
+  registro_semanal.registrar_temperatura(dia, temperatura_dia)
+
+promedio_semanal = registro_semanal.calcular_promedio_semanal()
+print(f"El promedio semanal de temperaturas es: {promedio_semanal:.2f}")
