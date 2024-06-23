@@ -1,0 +1,44 @@
+class Cliente:
+    def __init__(self, nombre, telefono):
+        self.nombre = nombre
+        self.telefono = telefono
+from datetime import datetime
+
+class Turno:
+    def __init__(self, cliente, fecha, hora):
+        self.cliente = cliente
+        self.fecha = fecha
+        self.hora = hora
+    
+    def __str__(self):
+        return f"Turno para {self.cliente.nombre} el {self.fecha} a las {self.hora}"
+class Farmacia:
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.turnos = []
+    
+    def agendar_turno(self, cliente, fecha, hora):
+        turno = Turno(cliente, fecha, hora)
+        self.turnos.append(turno)
+        print(f"Turno agendado: {turno}")
+    
+    def mostrar_turnos(self):
+        if self.turnos:
+            print(f"Turnos agendados en {self.nombre}:")
+            for turno in self.turnos:
+                print(turno)
+        else:
+            print("No hay turnos agendados aún.")
+# Crear clientes
+cliente1 = Cliente("Juan Perez", "123456789")
+cliente2 = Cliente("Maria Lopez", "987654321")
+
+# Crear una farmacia
+farmacia1 = Farmacia("Farmacia XYZ")
+
+# Agendar turnos
+farmacia1.agendar_turno(cliente1, "2024-06-24", "10:00")
+farmacia1.agendar_turno(cliente2, "2024-06-25", "15:30")
+
+# Mostrar turnos agendados
+farmacia1.mostrar_turnos()
