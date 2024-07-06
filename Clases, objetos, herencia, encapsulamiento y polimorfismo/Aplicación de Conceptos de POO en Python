@@ -1,1 +1,60 @@
+class Vehiculo:
+    def __init__(self, marca, modelo):
+        self.marca = marca
+        self.modelo = modelo
+
+    def mostrar_informacion(self):
+        print(f"Marca: {self.marca}, Modelo: {self.modelo}")
+
+class Automovil(Vehiculo):
+    def __init__(self, marca, modelo, color):
+        super().__init__(marca, modelo)
+        self.color = color
+
+    def mostrar_informacion(self):
+        print(f"Marca: {self.marca}, Modelo: {self.modelo}, Color: {self.color}")
+
+class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.__edad = edad  # __edad es un atributo privado
+
+    def mostrar_informacion(self):
+        print(f"Nombre: {self.nombre}, Edad: {self.__edad}")
+
+    def obtener_edad(self):
+        return self.__edad
+
+    def set_edad(self, nueva_edad):
+        if nueva_edad > 0:
+            self.__edad = nueva_edad
+
+class Animal:
+    def sonido(self):
+        pass
+
+class Perro(Animal):
+    def sonido(self):
+        print("Guau!")
+
+class Gato(Animal):
+    def sonido(self):
+        print("Miau!")
+
+def hacer_sonar(animal):
+    animal.sonido()
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    auto = Automovil("Honda", "Civic", "Negro")
+    auto.mostrar_informacion()
+
+    persona = Persona("Juan", 30)
+    persona.mostrar_informacion()
+
+    mi_perro = Perro()
+    mi_gato = Gato()
+
+    hacer_sonar(mi_perro)  # Salida: Guau!
+    hacer_sonar(mi_gato)   # Salida: Miau!
 
