@@ -1,1 +1,74 @@
+class Producto:
+  """
+  Clase que representa un producto.
+  """
+
+  def __init__(self, nombre, precio, unidades_en_stock):
+    """
+    Constructor de la clase Producto.
+
+    Args:
+      nombre (str): Nombre del producto.
+      precio (float): Precio del producto.
+      unidades_en_stock (int): Unidades del producto en stock.
+    """
+    self.nombre = nombre
+    self.precio = precio
+    self.unidades_en_stock = unidades_en_stock
+
+  def __del__(self):
+    """
+    Destructor de la clase Producto.
+
+    Se imprime un mensaje cuando se elimina una instancia de la clase.
+    """
+    print(f"Se ha eliminado el producto '{self.nombre}'")
+
+class Tienda:
+  """
+  Clase que representa una tienda.
+  """
+
+  def __init__(self):
+    """
+    Constructor de la clase Tienda.
+
+    Inicializa una lista vacía para almacenar productos.
+    """
+    self.productos = []
+
+  def agregar_producto(self, producto):
+    """
+    Agrega un producto a la lista de productos de la tienda.
+
+    Args:
+      producto (Producto): Objeto de la clase Producto que se desea agregar.
+    """
+    self.productos.append(producto)
+
+  def mostrar_productos(self):
+    """
+    Muestra la información de cada producto en la lista de productos de la tienda.
+    """
+    for producto in self.productos:
+      print(f"Nombre: {producto.nombre}")
+      print(f"Precio: {producto.precio}")
+      print(f"Unidades en stock: {producto.unidades_en_stock}")
+      print()
+
+# Creamos una instancia de la clase Tienda
+tienda = Tienda()
+
+# Creamos algunos productos
+producto1 = Producto("Camiseta", 25, 10)
+producto2 = Producto("Pantalón", 35, 15)
+producto3 = Producto("Zapatos", 50, 8)
+
+# Agregamos los productos a la tienda
+tienda.agregar_producto(producto1)
+tienda.agregar_producto(producto2)
+tienda.agregar_producto(producto3)
+
+# Mostramos los productos de la tienda
+tienda.mostrar_productos()
 
