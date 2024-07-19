@@ -1,1 +1,49 @@
+import os
+
+
+class Script:
+    def __init__(self, nombre, ruta):
+        self.nombre = nombre
+        self.ruta = ruta
+        try:
+            with open(self.ruta, 'r') as archivo:
+                self.codigo = archivo.read()
+        except FileNotFoundError:
+            print(f"El archivo '{nombre}' no se encontró.")
+        except Exception as e:
+            print(f"Ocurrió un error al leer el archivo '{nombre}': {e}")
+
+    def mostrar_codigo(self):
+        print(f"\n--- Código de {self.nombre} ---\n")
+        print(self.codigo)
+
+
+class Dashboard:
+    def __init__(self):
+        self.scripts = [
+            Script('Unidad 1/1.2. Tecnicas de Programacion/1.2-1. Ejemplo Tecnicas de Programacion.py',
+                   os.path.join(os.path.dirname(__file__), 'Unidad 1/1.2. Tecnicas de Programacion/1.2-1. Ejemplo Tecnicas de Programacion.py')),
+            # Agregar aquí el resto de las rutas de los scripts como objetos Script
+        ]
+
+    def mostrar_menu(self):
+        while True:
+            print("\nMenu Principal - Dashboard")
+            for i, script in enumerate(self.scripts):
+                print(f"{i + 1} - {script.nombre}")
+            print("0 - Salir")
+
+            eleccion = input("Elige un script para ver su código o '0' para salir: ")
+            if eleccion == '0':
+                break
+            elif eleccion.isdigit() and 1 <= int(eleccion) <= len(self.scripts):
+                indice_script = int(eleccion) - 1
+                self.scripts[indice_script].mostrar_codigo()
+            else:
+                print("Opción no válida. Por favor, intenta de nuevo.")
+
+
+if __name__ == "__main__":
+    dashboard = Dashboard()
+    dashboard.mostrar_menu()
 
