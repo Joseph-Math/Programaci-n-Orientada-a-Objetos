@@ -1,1 +1,85 @@
+class Producto:
+    def __init__(self, id_producto, nombre, cantidad, precio):
+        self.id_producto = id_producto
+        self.nombre = nombre
+        self.cantidad = cantidad
+        self.precio = precio
+
+    def __str__(self):
+        return (f"ID: {self.id_producto}, Nombre: {self.nombre}, "
+                f"Cantidad: {self.cantidad}, Precio: {self.precio:.2f}")
+
+    def actualizar(self, nombre=None, cantidad=None, precio=None):
+        if nombre is not None:
+            self.nombre = nombre
+        if cantidad is not None:
+            self.cantidad = cantidad
+        if precio is not None:
+            self.precio = precio
+
+
+class Inventario:
+    def __init__(self):
+        self.productos = {}
+
+    def añadir_producto(self, id_producto, nombre, cantidad, precio):
+        if id_producto in self.productos:
+            print("El producto con este ID ya existe.")
+        else:
+            self.productos[id_producto] = Producto(id_producto, nombre, cantidad, precio)
+            print("Producto añadido con éxito.")
+
+    def actualizar_producto(self, id_producto, nombre=None, cantidad=None, precio=None):
+        if id_producto in self.productos:
+            self.productos[id_producto].actualizar(nombre, cantidad, precio)
+            print("Producto actualizado con éxito.")
+        else:
+            print("No se encontró el producto con este ID.")
+
+    def eliminar_producto(self, id_producto):
+        if id_producto in self.productos:
+            del self.productos[id_producto]
+            print("Producto eliminado con éxito.")
+        else:
+            print("No se encontró el producto con este ID.")
+
+    def buscar_producto(self, id_producto):
+        if id_producto in self.productos:
+            return str(self.productos[id_producto])
+        else:
+            return "No se encontró el producto con este ID."
+
+    def mostrar_inventario(self):
+        if not self.productos:
+            print("El inventario está vacío.")
+        else:
+            for producto in self.productos.values():
+                print(producto)
+
+
+# Ejemplo de uso del sistema de gestión de inventarios
+if __name__ == "__main__":
+    inventario = Inventario()
+
+    # Añadir productos
+    inventario.añadir_producto(1, "Laptop", 10, 799.99)
+    inventario.añadir_producto(2, "Ratón", 25, 19.99)
+
+    # Mostrar inventario
+    print("\nInventario:")
+    inventario.mostrar_inventario()
+
+    # Actualizar producto
+    inventario.actualizar_producto(1, cantidad=8, precio=749.99)
+
+    # Buscar producto
+    print("\nBuscar producto con ID 1:")
+    print(inventario.buscar_producto(1))
+
+    # Eliminar producto
+    inventario.eliminar_producto(2)
+
+    # Mostrar inventario actualizado
+    print("\nInventario actualizado:")
+    inventario.mostrar_inventario()
 
