@@ -1,1 +1,96 @@
+import os
+
+class Inventario:
+    def __init__(self, archivo='inventario.txt'):
+        self.archivo = archivo
+        self.productos = {}
+        self.cargar_inventario()
+
+    def cargar_inventario(self):
+        """Cargar productos desde el archivo de inventario al iniciar el programa."""
+        if not os.path.exists(self.archivo):
+            print("Archivo de inventario no encontrado. Se creará uno nuevo.")
+            return
+        
+        try:
+            with open(self.archivo, 'r') as archivo:
+                for linea in archivo:
+                    producto, cantidad = linea.strip().split(',')
+                    self.productos[producto] = int(cantidad)
+        except (FileNotFoundError, PermissionError) as e:
+            print(f"Error al cargar el archivo: {e}")
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+
+    def guardar_inventario(self):
+        """Guardar los productos en el archivo de inventario."""
+        try:
+            with open(self.archivo, 'w') as archivo:
+                for producto, cantidad in self.productos.items():
+                    archivo.write(f"{producto},{cantidad}\n")
+            print("Inventario guardado exitosamente.")
+        except PermissionError:
+            print("Error: No se tiene permiso para escribir en el archivo.")
+        except Exception as e:
+            print(f"Error inesperado al guardar el archivo: {e}")
+
+    def añadir_producto(self, producto, cantidad):
+        """Añadir un nuevo producto o actualizar la cantidad de un producto existente."""
+        if cantidad < 0:
+            print("La cantidad no puede ser negativa.")
+            return
+        
+        self.productos[producto] = self.productos.get(producto, 0) + cantidad
+        self.guardar_inventario()
+
+    def actualizar_producto(self, producto, cantidad):
+        """Actualizar la cantidad de un producto existente."""
+        if producto not in self.productos:
+            print("Producto no encontrado en el inventario.")
+            return
+        
+        if cantidad < 0:
+            print("La cantidad no puede ser negativa.")
+            return
+        
+        self.productos[producto] = cantidad
+        self.guardar_inventario()
+
+    def eliminar_producto(self, producto):
+        """Eliminar un producto del inventario."""
+        if producto not in self.productos:
+            print("Producto no encontrado en el inventario.")
+            return
+        
+        del self.productos[producto]
+        self.guardar_inventario()
+
+    def mostrar_inventario(self):
+        """Mostrar todos los productos y sus cantidades."""
+        if not self.productos:
+            print("El inventario está vacío.")
+            return
+        
+        for producto, cantidad in self.productos.items():
+            print(f"Producto: {producto}, Cantidad: {cantidad}")
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    inventario = Inventario()
+
+    # Añadir productos
+    inventario.añadir_producto("Manzanas", 50)
+    inventario.añadir_producto("Peras", 30)
+
+    # Mostrar inventario
+    inventario.mostrar_inventario()
+
+    # Actualizar producto
+    inventario.actualizar_producto("Manzanas", 40)
+
+    # Eliminar producto
+    inventario.eliminar_producto("Peras")
+
+    # Mostrar inventario después de actualizaciones
+    inventario.mostrar_inventario()
 
